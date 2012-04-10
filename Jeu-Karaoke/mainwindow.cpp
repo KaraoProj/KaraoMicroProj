@@ -59,6 +59,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(a_quitter, SIGNAL(triggered()),this, SLOT(quitterAppli()));
 
 
+    QDockWidget *dockWidget = new QDockWidget(tr("Dock Widget"), this);
+        dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea |
+                                    Qt::RightDockWidgetArea);
+      //  dockWidget->setWidget(dockWidgetContents);
+        addDockWidget(Qt::LeftDockWidgetArea, dockWidget);
 
 
 }

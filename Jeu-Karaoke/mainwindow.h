@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QEvent>
 #include <QCloseEvent>
+#include <QDockWidget>
 #include <iostream>
 
 namespace Ui {
