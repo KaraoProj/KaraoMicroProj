@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    saved = false;
+
     // Création de la barre de menu - variables utilisées uniquement dans le constructeur - destruction nécessaire ?
     QMenuBar* barre_menu = menuBar();                                                 // Barre de menu
 
@@ -61,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 }
 
+
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -70,6 +74,22 @@ MainWindow::~MainWindow()
     delete a_sauver_partie;
     delete a_quitter;
 }
+
+
+
+void MainWindow::changeEvent(QEvent *e)
+{
+    QMainWindow::changeEvent(e);
+    switch (e->type()) {
+    case QEvent::LanguageChange:
+        ui->retranslateUi(this);
+        break;
+    default:
+        break;
+    }
+}
+
+
 
 void MainWindow::nouvellePartie(){
     cout << "Nouvelle partie" << endl;
@@ -90,8 +110,9 @@ void MainWindow::chargerPartie(){
 
 }
 
-
 void MainWindow::sauverPartie(){
+
+    saved=false;
 
     // Ouverture d'une boite de choix de sauvegarde
     QString fileName =
@@ -102,9 +123,10 @@ void MainWindow::sauverPartie(){
     // Action à effectuer ensuite !
     cout << "Sauver : " << fileName.toStdString() << endl;
 
+    // Il faudra mettre saved à true dans la méthode de sauvegarde des classes inférieures !
+
 
 }
-
 
 void MainWindow::quitterAppli(){
 
@@ -117,3 +139,46 @@ void MainWindow::quitterAppli(){
     }
 
 }
+
+
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    int result = maybeSave();                                        // On appelle MaybeSave pour ouvrir la fenêtre de dialogue et on stoque la réponse dans result
+    if (result==0)                                                   // Réponse = sauvegarder
+    {
+        this->sauverPartie();                                        // On appelle le slot de sauvegarde de notre fichier
+        if(saved)                                                    // Si on a bien sauvé dans la seconde fenêtre et non cliqué sur annuler, on peut quitter
+        {
+            event->accept();
+        }
+        else                                                         // Sinon, on ne quitte pas
+        {
+            event->ignore();
+        }
+    }
+    else if(result==1)                                               // Réponse = cancel
+    {
+        event->ignore();
+    }
+    else if(result==2)                                               // Réponse = quitter sans sauver
+    {
+        event->accept();
+    }
+}
+
+const int MainWindow::maybeSave()
+{
+    QMessageBox::StandardButton ret;
+    ret = QMessageBox::warning(this, tr("KaraoGame"),
+                               tr("Voulez-vous vraiment quitter sans sauver ?"
+                                  ),
+                               QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    if (ret == QMessageBox::Save)                                                           // Réponse = sauvegarder
+        return 0;
+    else if (ret == QMessageBox::Cancel)                                                    // Réponse = annuler
+        return 1;
+
+    return 2;                                                                               // Réponse = quitter sans sauver
+}
+
