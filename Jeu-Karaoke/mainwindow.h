@@ -7,13 +7,10 @@
 #include <QMessageBox>
 #include <QEvent>
 #include <QCloseEvent>
-#include <QDockWidget>
-#include <QGridLayout>
-#include <QLineEdit>
 #include <QPalette>
 #include <iostream>
 
-#include  "panel_boutons.h"
+#include "panel_boutons.h"
 #include "panel_musique.h"
 #include "panel_texte.h"
 
