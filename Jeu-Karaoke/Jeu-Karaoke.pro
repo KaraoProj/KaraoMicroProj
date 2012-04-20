@@ -7,8 +7,12 @@ TARGET = Jeu-Karaoke
 TEMPLATE = app
 SOURCES += main.cpp \
     mainwindow.cpp \
-    hello.cpp
+    panel_texte.cpp \
+    panel_musique.cpp \
+    panel_boutons.cpp
 HEADERS += mainwindow.h \
-    hello.h
+    panel_texte.h \
+    panel_musique.h \
+    panel_boutons.h
 FORMS += mainwindow.ui
 RESOURCES += icones.qrc

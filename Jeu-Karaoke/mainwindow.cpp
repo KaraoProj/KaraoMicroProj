@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    this->showMaximized();
+
     saved = false;
 
     // Création de la barre de menu - variables utilisées uniquement dans le constructeur - destruction nécessaire ?
@@ -22,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Actions du menu File
 
-        // Nouvelle partie
+    // Nouvelle partie
     a_nouvelle_partie = new QAction(QIcon(":/images/new.png"),tr("&Nouveau.."), this);     //
     a_nouvelle_partie->setShortcut(tr("Ctrl+N"));                                          // Raccourci clavier
     a_nouvelle_partie->setToolTip(tr("Nouvelle partie"));                                  // Information
@@ -31,7 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     barre_outils->addAction(a_nouvelle_partie);                                            // Ajout à la toolbar
     connect( a_nouvelle_partie, SIGNAL(triggered()), this, SLOT(nouvellePartie()));                 // Connection du signal au SLOT associé
 
-        // Charger partie
+    // Charger partie
     a_charger_partie = new QAction(QIcon(":/images/open.png"),tr("&Ouvrir.."), this);
     a_charger_partie->setShortcut(tr("Ctrl+O"));
     a_charger_partie->setToolTip(tr("Charger une partie"));
@@ -40,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     barre_outils->addAction(a_charger_partie);
     connect(a_charger_partie, SIGNAL(triggered()),this, SLOT(chargerPartie()));
 
-        // Sauver partie
+    // Sauver partie
     a_sauver_partie = new QAction(QIcon(":/images/save.png"),tr("&Sauver"), this);
     a_sauver_partie->setShortcut(tr("Ctrl+S"));
     a_sauver_partie->setToolTip(tr("Sauver partie"));
@@ -49,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
     barre_outils->addAction(a_sauver_partie);
     connect(a_sauver_partie, SIGNAL(triggered()),this, SLOT(sauverPartie()));
 
-        // Quit Application
+    // Quit Application
     a_quitter = new QAction(QIcon(":/images/quit.png"),tr("&Quitter"), this);
     a_quitter->setShortcut(tr("Ctrl+E"));
     a_quitter->setToolTip(tr("Quitter le jeu"));
@@ -58,12 +60,23 @@ MainWindow::MainWindow(QWidget *parent) :
     barre_outils->addAction(a_quitter);
     connect(a_quitter, SIGNAL(triggered()),this, SLOT(quitterAppli()));
 
+    zone_centrale = new QWidget;
+    zone_centrale->setAutoFillBackground(true);
+    QPalette Pal(palette());
+    Pal.setColor(QPalette::Background, Qt::yellow);
+    zone_centrale->setPalette(Pal);
 
-    QDockWidget *dockWidget = new QDockWidget(tr("Dock Widget"), this);
-        dockWidget->setAllowedAreas(Qt::LeftDockWidgetArea |
-                                    Qt::RightDockWidgetArea);
-      //  dockWidget->setWidget(dockWidgetContents);
-        addDockWidget(Qt::LeftDockWidgetArea, dockWidget);
+    player_musique = new Panel_Musique(this);
+    zone_reglages = new Panel_Boutons(this);
+    zone_karaoke = new Panel_Texte(this);
+
+    QGridLayout *layout = new QGridLayout;
+    layout->addWidget(player_musique, 0,0,1,-1);
+    layout->addWidget(zone_reglages, 1,3,3,1);
+    layout->addWidget(zone_karaoke, 1,0,3,3);
+
+    zone_centrale->setLayout(layout);
+    setCentralWidget(zone_centrale);
 
 
 }
@@ -78,6 +91,12 @@ MainWindow::~MainWindow()
     delete a_charger_partie;
     delete a_sauver_partie;
     delete a_quitter;
+
+    delete player_musique;
+    delete zone_reglages;
+    delete zone_karaoke;
+    delete zone_centrale;
+
 }
 
 
@@ -147,7 +166,7 @@ void MainWindow::quitterAppli(){
 
 
 
-void MainWindow::closeEvent(QCloseEvent *event)
+void MainWindow::closeEvent(QCloseEvent *event)                      // On essaie de quitter l'appli en cliquant sur la croix
 {
     int result = maybeSave();                                        // On appelle MaybeSave pour ouvrir la fenêtre de dialogue et on stoque la réponse dans result
     if (result==0)                                                   // Réponse = sauvegarder
@@ -172,7 +191,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
     }
 }
 
-const int MainWindow::maybeSave()
+const int MainWindow::maybeSave()                                   // Ouvre une boîte de dialogue demandant si on souhaite réellement quitter sans sauver
 {
     QMessageBox::StandardButton ret;
     ret = QMessageBox::warning(this, tr("KaraoGame"),

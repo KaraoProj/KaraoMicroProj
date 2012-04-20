@@ -8,10 +8,17 @@
 #include <QEvent>
 #include <QCloseEvent>
 #include <QDockWidget>
+#include <QGridLayout>
+#include <QLineEdit>
+#include <QPalette>
 #include <iostream>
 
+#include  "panel_boutons.h"
+#include "panel_musique.h"
+#include "panel_texte.h"
+
 namespace Ui {
-    class MainWindow;
+class MainWindow;
 }
 
 class MainWindow : public QMainWindow
@@ -25,7 +32,11 @@ class MainWindow : public QMainWindow
 
     bool saved;                                  // Booléen permettant de savoir si on a vraiment sauvé après avoir ouvert une QFileDialog de sauvergarde
 
+    QWidget* zone_centrale;
 
+    Panel_Boutons* zone_reglages;
+    Panel_Musique* player_musique;
+    Panel_Texte* zone_karaoke;
 
 
 
