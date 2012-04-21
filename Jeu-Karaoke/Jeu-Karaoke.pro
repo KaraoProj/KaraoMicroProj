@@ -1,8 +1,7 @@
 # -------------------------------------------------
 # Project created by QtCreator 2012-04-01T16:59:09
 # -------------------------------------------------
-QT += core \
-    gui
+QT += phonon
 TARGET = Jeu-Karaoke
 TEMPLATE = app
 SOURCES += main.cpp \

@@ -4,12 +4,12 @@ Panel_Musique::Panel_Musique(QWidget *parent) :
     QWidget(parent)
 {
 
-    /*
+
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, Qt::blue);
     setPalette(Pal);
     setAutoFillBackground(true);
-    */
+
 
     // Gestion du fichier audio
     audioOutput = new Phonon::AudioOutput(Phonon::MusicCategory,this);

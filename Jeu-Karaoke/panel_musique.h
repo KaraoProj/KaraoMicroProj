@@ -6,8 +6,6 @@
 #include <phonon/seekslider.h>
 #include <phonon/audiooutput.h>
 #include <phonon/volumeslider.h>
-#include <Phonon/AudioOutput>
-
 #include <QAction>
 #include <QLabel>
 #include <QVBoxLayout>
