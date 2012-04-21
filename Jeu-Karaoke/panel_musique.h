@@ -45,7 +45,7 @@ public:
 public slots:
     void debug();
     void tick(qint64 time);     // Envoie le temps écoulé de mediaObject vers  l'afficheur LCD
-
+    void qActionsManager();
 };
 
 #endif // PANEL_MUSIQUE_H
