@@ -26,28 +26,26 @@ public:
     Phonon::SeekSlider *barreLecture;   // Barre de lecture
     Phonon::MediaObject *mediaObject;   // Permet de gérer la musique
     Phonon::AudioOutput *audioOutput;   // Permet d'écouter la musique
-    Phonon::VolumeSlider *barreVolume;  //Barre de volume
-    QAction *playAction;
-    QAction *pauseAction;
-    QAction *stopAction;
+    Phonon::VolumeSlider *barreVolume;  // Barre de volume
+    QAction *playAction;                ///
+    QAction *pauseAction;               // Boutons play, pause, stop
+    QAction *stopAction;                ///
     QString source;
-    QStateMachine * mac;
+    QStateMachine * mac;                        // Machine à état
     QState * playState,*pauseState,*stopState;
-    QLCDNumber *temps;
+    QLCDNumber *temps;                  // Affichage du temps de lecture
+    QString artiste,titre;
 
 public:
     ~Panel_Musique();
 
-    void setUI();           // Interface Utilisateur
-    void setActions();      // Initilialise les QActions
-    void setStateMachine();  // Initialise la machine à état
+    void setUI();               // Interface Utilisateur
+    void setActions();          // Initilialise les QActions
+    void setStateMachine();      // Initialise la machine à état
 public slots:
     void debug();
-    void tick(qint64 time);
-/*
-protected:
-    void changeEvent(QEvent *e);
-*/
+    void tick(qint64 time);     // Envoie le temps écoulé de mediaObject vers  l'afficheur LCD
+
 };
 
 #endif // PANEL_MUSIQUE_H

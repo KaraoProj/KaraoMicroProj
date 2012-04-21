@@ -20,6 +20,8 @@ Panel_Musique::Panel_Musique(QWidget *parent) :
 
     source = "Sound/1995_LaSuite.wav";
     mediaObject->setCurrentSource(source);
+    titre = "La Suite";
+    artiste = "1995";
 
     Phonon::createPath(mediaObject,audioOutput);    //Relie le gestionnaire du son au diffuseur de son
 
@@ -84,16 +86,16 @@ void Panel_Musique::debug(){
 
 void Panel_Musique::setUI(){
 
-    QHBoxLayout * principalLayout= new QHBoxLayout;
+    QHBoxLayout * principalLayout= new QHBoxLayout;     // Layout principal
 
-    QVBoxLayout *  interactiveLayout = new QVBoxLayout;
+    QVBoxLayout *  interactiveLayout = new QVBoxLayout; // Layout d'interaction avec boutons, volume et barre de lecture
 
     barreLecture = new Phonon::SeekSlider(this);
-    barreLecture->setMediaObject(mediaObject);
+    barreLecture->setMediaObject(mediaObject);          // On relie la barre de lecture au mediaobject
 
-    QHBoxLayout * controlLayout = new QHBoxLayout;
+    QHBoxLayout * controlLayout = new QHBoxLayout;      // Boutons + Volume
 
-    QToolBar * barreControle = new QToolBar;    // Barre d'outils Pause, Play, Stop
+    QToolBar * barreControle = new QToolBar;            // Barre d'outils Pause, Play, Stop
     barreControle->addAction(playAction);
     barreControle->addAction(pauseAction);
     barreControle->addAction(stopAction);
@@ -107,22 +109,19 @@ void Panel_Musique::setUI(){
     interactiveLayout->addWidget(barreLecture);
     interactiveLayout->addLayout(controlLayout);
 
-    QVBoxLayout* informationLayout= new QVBoxLayout; // Barre d'information : Titre, temps écoulé
+    QVBoxLayout* informationLayout= new QVBoxLayout;    // Barre d'information : Titre, temps écoulé
 
-    QLabel* titre = new QLabel(source);
+    QLabel* titreLabel = new QLabel(titre);                 // Titre
+    QLabel* artisteLabel = new QLabel(artiste);             // Artiste
     temps = new QLCDNumber;
-    temps->display("Press Start");
+    temps->display("GO");
 
-    informationLayout->addWidget(titre);
+    informationLayout->addWidget(titreLabel);
+    informationLayout->addWidget(artisteLabel);
     informationLayout->addWidget(temps);
 
     principalLayout->addLayout(interactiveLayout);
     principalLayout->addLayout(informationLayout);
 
-    /*
-    QWidget * widget = new QWidget();
-    widget->setLayout(principalLayout);
-*/
     this->setLayout(principalLayout);
-    //setWindowTitle("SoundReader");
 }
