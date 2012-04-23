@@ -132,6 +132,8 @@ void MainWindow::chargerPartie(){
     // Action à effectuer ensuite !
     cout << "Ouvrir : " << fileName.toStdString() << endl;
 
+    zone_karaoke->charger_texte(fileName.toStdString());
+
 }
 
 void MainWindow::sauverPartie(){
