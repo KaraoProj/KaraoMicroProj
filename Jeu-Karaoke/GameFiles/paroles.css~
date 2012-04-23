@@ -1,0 +1,12 @@
+
+body{padding:0px; font-family:Verdana, sans-serif; text-align:center;}
+
+div.tirets{margin:auto; color:#AAA; margin-bottom:3em; padding:1em 1.2em 1.3em 1.3em;}
+
+div.lecture{text-decoration:underline;}
+
+p{text-indent:2em;}
+
+
+
+
