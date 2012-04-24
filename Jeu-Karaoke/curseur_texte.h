@@ -9,6 +9,8 @@ class Curseur_Texte : public QTextCursor
 public:
     explicit Curseur_Texte(QTextDocument * document=0);
 
+    virtual ~Curseur_Texte();
+
     virtual void init();
     virtual void selectionner_mot();
     virtual void avancer();

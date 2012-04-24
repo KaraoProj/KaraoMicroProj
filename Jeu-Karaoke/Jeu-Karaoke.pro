@@ -10,14 +10,12 @@ SOURCES += main.cpp \
     panel_musique.cpp \
     panel_boutons.cpp \
     curseur_texte.cpp \
-    champ_saisie.cpp \
-    curseur_saisie.cpp
+    champ_saisie.cpp
 HEADERS += mainwindow.h \
     panel_texte.h \
     panel_musique.h \
     panel_boutons.h \
     curseur_texte.h \
-    champ_saisie.h \
-    curseur_saisie.h
+    champ_saisie.h
 FORMS += mainwindow.ui
 RESOURCES += icones.qrc

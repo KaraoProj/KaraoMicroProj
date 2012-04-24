@@ -6,6 +6,10 @@ Curseur_Texte::Curseur_Texte(QTextDocument * document) : QTextCursor(document)
 {
 }
 
+Curseur_Texte::~Curseur_Texte(){
+
+}
+
 void Curseur_Texte::init(){
     cout<<"Avant init :" << this->position()<<endl;
     this->movePosition(QTextCursor::MoveOperation(1),QTextCursor::MoveMode(0),1);

@@ -39,7 +39,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    virtual ~MainWindow();
 
     virtual void closeEvent(QCloseEvent*);       // Fonction lancée lorsqu'on clique sur la croix
 

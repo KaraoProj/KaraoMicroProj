@@ -37,11 +37,12 @@ public:
     QString artiste,titre;
 
 public:
-    ~Panel_Musique();
+    virtual ~Panel_Musique();
 
     void setUI();               // Interface Utilisateur
     void setActions();          // Initilialise les QActions
     void setStateMachine();      // Initialise la machine à état
+
 public slots:
     void debug();
     void tick(qint64 time);     // Envoie le temps écoulé de mediaObject vers  l'afficheur LCD

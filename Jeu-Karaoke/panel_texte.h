@@ -30,7 +30,7 @@ class Panel_Texte : public QWidget
 
 public:
     explicit Panel_Texte(QWidget *parent = 0);
-    ~Panel_Texte();
+    virtual ~Panel_Texte();
 
     virtual void charger_texte(const string&);
 

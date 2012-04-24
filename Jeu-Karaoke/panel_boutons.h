@@ -9,6 +9,8 @@ class Panel_Boutons : public QWidget
 public:
     explicit Panel_Boutons(QWidget *parent = 0);
 
+    virtual ~Panel_Boutons();
+
 signals:
 
 public slots:

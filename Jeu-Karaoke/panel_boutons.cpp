@@ -8,3 +8,7 @@ Panel_Boutons::Panel_Boutons(QWidget *parent) :
     setPalette(Pal);
     setAutoFillBackground(true);
 }
+
+Panel_Boutons::~Panel_Boutons(){
+
+}
