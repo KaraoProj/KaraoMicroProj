@@ -5,7 +5,7 @@ Panel_Texte::Panel_Texte(QWidget *parent) :
 {
     // Background du Panel
     QPalette Pal(palette());
-    Pal.setColor(QPalette::Background, Qt::green);
+    Pal.setColor(QPalette::Background, Qt::black);
     setPalette(Pal);
     setAutoFillBackground(true);
 
@@ -15,10 +15,6 @@ Panel_Texte::Panel_Texte(QWidget *parent) :
 
     zone_paroles_doc = zone_paroles->document();
 
-    //zone_paroles_doc->setDefaultStyleSheet("../Jeu-Karaoke/GameFiles/paroles.css")
-    //cout << zone_paroles_doc->defaultStyleSheet().toStdString() << endl;
-
-
     zone_paroles_curseur = new Curseur_Texte(zone_paroles_doc);
     chanson_curseur = new Curseur_Texte(zone_paroles_doc);
 
@@ -26,11 +22,7 @@ Panel_Texte::Panel_Texte(QWidget *parent) :
     police.setPixelSize(36);
     zone_paroles_doc->setDefaultFont(police);
 
-    //zone_paroles_curseur->insertHtml("<body><div class='lecture'>Han 1995 <b> mon gang </b>,</div> venu pour mailler sans faire le tapin<br>Tourne ta langue sept fois dans ta grande bouche avant de faire le malin<br>Je me demande d'où ils sortent<br>Se faisant passer pour mes doyens<br>Mais on va se défendre avec le rap et le respect des anciens<br>Crois moi, aussi vrai que 6 fois 1 fait 6<br>Je me tiens à l'écart du vice et reste droit<br>Cheval de troie fixé sur l'industrie du disque<br>Il y a quoi ?<br>On reste les mêmes obsédés par la rime<br>Un beat de Lo'<br>Tu kiffes les flows développés par ma team<br>Avis à çeux qui nous prenaient pour des pitres<br>On revient bousiller le jeu<br>Bien préparer pour le titre");
-    //zone_paroles_curseur->insertHtml("<br>LOL<br>LOOOOOL<br>LOOOOOOOOOOOoooOOOOl</body>");
-
-
-    saisie =new QLineEdit(this);
+    saisie = new Champ_Saisie(this);
 
     QVBoxLayout *layout_interne = new QVBoxLayout;
     layout_interne->addWidget(zone_paroles);
@@ -112,20 +104,6 @@ void Panel_Texte::keyPressEvent(QKeyEvent *e){
         zone_paroles_curseur->movePosition(QTextCursor::MoveOperation(8),QTextCursor::MoveMode(0),1);
         zone_paroles_curseur->selectionner_mot();
     }
-    /*if(e->key()==0x01000033){ // F4
-        QString aux;
-        QTextCharFormat format_test;
-
-        format_test.setUnderlineColor(Qt::red);
-        format_test.setFontUnderline(true);
-        format_test.setFontWordSpacing(10);
-
-        aux = zone_paroles_curseur->selectedText();
-
-        zone_paroles_curseur->selectedText().remove(0,aux.size());
-        zone_paroles_curseur->insertText(aux,format_test);
-
-    }*/
     if(e->key()==0x0100003b){ //F12
         chanson_curseur->init();
         zone_paroles_curseur->init();

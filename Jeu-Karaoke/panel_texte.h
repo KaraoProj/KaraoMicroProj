@@ -14,13 +14,14 @@
 
 
 #include "curseur_texte.h"
+#include "champ_saisie.h"
 
 using namespace std;
 
 class Panel_Texte : public QWidget
 {
     Q_OBJECT
-    QLineEdit* saisie;
+    Champ_Saisie* saisie;
     QTextEdit* zone_paroles;
     QTextDocument* zone_paroles_doc;
     Curseur_Texte* zone_paroles_curseur;
