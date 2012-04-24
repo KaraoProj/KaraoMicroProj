@@ -1,4 +1,7 @@
 #include "panel_musique.h"
+#include <iostream>
+
+using namespace std;
 
 Panel_Musique::Panel_Musique(QWidget *parent) :
     QWidget(parent)
@@ -18,7 +21,7 @@ Panel_Musique::Panel_Musique(QWidget *parent) :
     mediaObject->setTickInterval(1000);                                  // Emission d'un tick toutes les secondes
     connect(mediaObject, SIGNAL(tick(qint64)),this, SLOT(tick(qint64))); // On va passer le temps écoulé (tick) à l'attribut "temps"
 
-    source = "Sound/1995_LaSuite.wav";
+    source = "../Jeu-Karaoke/Sound/1995_LaSuite.wav";
     mediaObject->setCurrentSource(source);
     titre = "La Suite";
     artiste = "1995";
@@ -28,6 +31,7 @@ Panel_Musique::Panel_Musique(QWidget *parent) :
     setActions();
     setStateMachine();
     setUI();
+    //mediaObject->play();
 }
 
 Panel_Musique::~Panel_Musique()
@@ -62,11 +66,11 @@ void Panel_Musique::qActionsManager(){
 
 void Panel_Musique::setActions(){
 
-    playAction = new QAction(QIcon("images/play.png"),tr("Play"),this);
+    playAction = new QAction(QIcon(":/images/play.png"),tr("Play"),this);
     playAction->setDisabled(false);
-    pauseAction = new QAction(QIcon("images/pause.png"),tr("Pause"),this);
+    pauseAction = new QAction(QIcon(":/images/pause.png"),tr("Pause"),this);
     pauseAction->setDisabled(true);
-    stopAction = new QAction(QIcon("images/stop.png"),tr("Stop"),this);
+    stopAction = new QAction(QIcon(":/images/stop.png"),tr("Stop"),this);
     stopAction->setDisabled(true);
 
 }

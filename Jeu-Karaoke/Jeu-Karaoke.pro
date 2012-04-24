@@ -8,10 +8,12 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     panel_texte.cpp \
     panel_musique.cpp \
-    panel_boutons.cpp
+    panel_boutons.cpp \
+    curseur_texte.cpp
 HEADERS += mainwindow.h \
     panel_texte.h \
     panel_musique.h \
-    panel_boutons.h
+    panel_boutons.h \
+    curseur_texte.h
 FORMS += mainwindow.ui
 RESOURCES += icones.qrc

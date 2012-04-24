@@ -2,10 +2,10 @@
 #define PANEL_MUSIQUE_H
 
 #include <QWidget>
-#include <phonon/mediaobject.h>
-#include <phonon/seekslider.h>
-#include <phonon/audiooutput.h>
-#include <phonon/volumeslider.h>
+#include "phonon/mediaobject.h"
+#include "phonon/seekslider.h"
+#include "phonon/audiooutput.h"
+#include "phonon/volumeslider.h"
 #include <QAction>
 #include <QLabel>
 #include <QVBoxLayout>
