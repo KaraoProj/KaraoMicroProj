@@ -21,30 +21,47 @@ using namespace std;
 class Panel_Texte : public QWidget
 {
     Q_OBJECT
+
+
+
     Champ_Saisie* saisie;
     QTextEdit* zone_paroles;
     QTextDocument* zone_paroles_doc;
-    Curseur_Texte* zone_paroles_curseur;
-    Curseur_Texte* chanson_curseur;
+    Curseur_Texte* curseur;
 
+    ////////////////////////
+    QList<QString> listeLigne;
+    QList<int> listeStyle;
+    QList<QString> listeEdit;
+    QList<QString> baliseStyle;
+    qint64 indexLigne;
+    qint64 indexLigneEcriture;
+    ////////////////////////
 
 public:
     explicit Panel_Texte(QWidget *parent = 0);
     virtual ~Panel_Texte();
 
-    virtual void charger_texte(const string&);
+     void chargerListeLignes(QList<QString> _listeLigne);
 
+    virtual void charger_texte();
+    virtual void re_ecrire();
 
-    virtual void essai_defilement();
+     virtual void aLaLigne();
+
+   // virtual void essai_defilement();
 
 protected:
     void keyPressEvent(QKeyEvent *);
-    void keyReleaseEvent(QKeyEvent *);
 
-
+/////////////
 signals:
 
 public slots:
+    void afficherLigne(qint64 index);
+    virtual void refresh();
+    virtual void remplacerLigne(const QString &);
+//////////////
 
 };
 

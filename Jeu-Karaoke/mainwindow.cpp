@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -66,9 +67,14 @@ MainWindow::MainWindow(QWidget *parent) :
     Pal.setColor(QPalette::Background, Qt::yellow);
     zone_centrale->setPalette(Pal);
 
+
+
     player_musique = new Panel_Musique(this);
     zone_reglages = new Panel_Boutons(this);
     zone_karaoke = new Panel_Texte(this);
+
+    connect(player_musique,SIGNAL(topDepart(qint64)),zone_karaoke,SLOT(afficherLigne(qint64)));
+
 
     QGridLayout *layout = new QGridLayout;
     layout->addWidget(player_musique, 0,0,1,-1);
@@ -117,7 +123,6 @@ void MainWindow::changeEvent(QEvent *e)
 
 void MainWindow::nouvellePartie(){
     cout << "Nouvelle partie" << endl;
-
 }
 
 void MainWindow::chargerPartie(){
@@ -127,12 +132,17 @@ void MainWindow::chargerPartie(){
             QFileDialog::getOpenFileName (this,
                                           tr("Ouvrir..."),
                                           "/desa",
-                                          tr("Karaoke Game File (*.kgf)"));
+                                          tr("Text File (*.*)"));
 
     // Action à effectuer ensuite !
     cout << "Ouvrir : " << fileName.toStdString() << endl;
 
-    zone_karaoke->charger_texte(fileName.toStdString());
+    //////////////////
+    loadLists(fileName.toStdString());
+    zone_karaoke->chargerListeLignes(listeLignes);
+    player_musique->chargerListeDeparts(listeDeparts);
+    //////////////////
+
 
 }
 
@@ -145,7 +155,7 @@ void MainWindow::sauverPartie(){
             QFileDialog::getSaveFileName(this,
                                          tr("Sauver..."),
                                          "/desa",
-                                         tr("Karaoke Game File (*.kgf)"));
+                                         tr("Text File (*.txt)"));
     // Action à effectuer ensuite !
     cout << "Sauver : " << fileName.toStdString() << endl;
 
@@ -208,3 +218,41 @@ const int MainWindow::maybeSave()                                   // Ouvre une
     return 2;                                                                               // Réponse = quitter sans sauver
 }
 
+//////////////////////////////////////////////
+void MainWindow::loadLists(const string &chemin){
+    ifstream monFlux(chemin.c_str(),ios::in);
+
+    if(monFlux)                                                                     // Si le fichier s'est ouvert
+    {
+        cout<< "Je suis dans le flux"<<endl;
+        string nom_chanson;
+        string stringDepart,stringParole;
+        string aux;
+
+        //Pour l'instant on en fait rien
+        getline(monFlux, nom_chanson);
+        getline(monFlux, aux);
+        getline(monFlux, aux);
+
+        while(getline(monFlux, stringDepart))                                             //Tant qu'on n'est pas a la fin, on lit
+        {
+            istringstream iss(stringDepart);    // On convertit le depart en int
+            qint64 depart;
+            iss>>depart;
+
+            getline(monFlux, stringParole);     // On recupère la ligne correspondante
+
+            listeDeparts.append(depart);
+            listeLignes.append(stringParole.c_str());
+
+        }
+
+        for (int i = 0 ; i< listeDeparts.length();i++){
+            cout<<"Nouvelle Ligne"<<endl;
+            cout<<listeDeparts.at(i)<<endl;
+            if(listeLignes.at(i)==NULL)
+                cout<<listeLignes.at(i).toStdString()<<endl;
+        }
+    }
+}
+//////////////////////////////////////////////////////

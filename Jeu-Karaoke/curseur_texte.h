@@ -4,22 +4,40 @@
 #include <QTextCursor>
 #include <iostream>
 
-class Curseur_Texte : public QTextCursor
+
+class Curseur_Texte : public QObject, public QTextCursor
 {
+
+    Q_OBJECT
+
 public:
+
     explicit Curseur_Texte(QTextDocument * document=0);
 
     virtual ~Curseur_Texte();
 
+    virtual void dire_position();
     virtual void init();
     virtual void selectionner_mot();
-    virtual void avancer();
+    virtual void selectionner_ligne();
 
-    virtual void setFormat_mot(const int, const QString&);
+
+
+
+
+
+    /*virtual void avancer_coloriser();
+    virtual void remplacer_mot(const QString&);
+    virtual void souligner_mot_a_suivre();*/
+
+
+    //virtual void setFormat_mot(const int, const QString&);
 
 signals:
+    void demande_position();
 
 public slots:
+
 
 };
 

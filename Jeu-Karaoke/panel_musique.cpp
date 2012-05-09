@@ -1,12 +1,8 @@
 #include "panel_musique.h"
-#include <iostream>
-
-using namespace std;
 
 Panel_Musique::Panel_Musique(QWidget *parent) :
     QWidget(parent)
 {
-
 
     QPalette Pal(palette());
     Pal.setColor(QPalette::Background, Qt::black);
@@ -20,6 +16,7 @@ Panel_Musique::Panel_Musique(QWidget *parent) :
 
     mediaObject->setTickInterval(1000);                                  // Emission d'un tick toutes les secondes
     connect(mediaObject, SIGNAL(tick(qint64)),this, SLOT(tick(qint64))); // On va passer le temps écoulé (tick) à l'attribut "temps"
+    //connect(mediaObject, SIGNAL(tick(qint64)),
 
     source = "../Jeu-Karaoke/Sound/1995_LaSuite.wav";
     mediaObject->setCurrentSource(source);
@@ -31,7 +28,6 @@ Panel_Musique::Panel_Musique(QWidget *parent) :
     setActions();
     setStateMachine();
     setUI();
-    //mediaObject->play();
 }
 
 Panel_Musique::~Panel_Musique()
@@ -42,6 +38,16 @@ Panel_Musique::~Panel_Musique()
 void Panel_Musique::tick(qint64 time){
     QTime displayTime(00, ( time / 60000 ) % 60, ( time / 1000 ) % 60,0);
     temps->display(displayTime.toString("mm:ss"));
+    suiveurMS =time/1000;
+    qint64 index;
+    qint64 i=0 ;
+    while(listeDeparts[i]<suiveurMS){
+        i=i+1;
+        index=i;
+        }
+    cout<<"index avant emit:" <<i<<endl;
+    if(i==0) emit topDepart(i);
+    else emit topDepart(i-1);
 }
 
 void Panel_Musique::qActionsManager(){
@@ -154,3 +160,15 @@ void Panel_Musique::setUI(){
 
     this->setLayout(principalLayout);
 }
+
+void Panel_Musique :: keyPressEvent (QKeyEvent *e){
+
+    if (e->key()== 82 ) // r
+        cout << this->suiveurMS <<endl;
+}
+
+void Panel_Musique :: keyReleaseEvent(QKeyEvent *e){
+
+}
+
+

@@ -9,6 +9,9 @@
 #include <QCloseEvent>
 #include <QPalette>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
 
 #include "panel_boutons.h"
 #include "panel_musique.h"
@@ -35,14 +38,21 @@ class MainWindow : public QMainWindow
     Panel_Musique* player_musique;
     Panel_Texte* zone_karaoke;
 
+    /////////////////////////
+    QList<qint64> listeDeparts;
+    QList<QString> listeLignes;
+    //////////////////////////
 
 
 public:
     explicit MainWindow(QWidget *parent = 0);
-    virtual ~MainWindow();
+    ~MainWindow();
 
     virtual void closeEvent(QCloseEvent*);       // Fonction lancée lorsqu'on clique sur la croix
 
+    ///////////////////////////////////
+    void loadLists(const string &chemin);
+    //////////////////////////////////
 
 protected:
     virtual void changeEvent(QEvent *);         // Changer la langue
