@@ -7,7 +7,6 @@ Panel_Texte::Panel_Texte(QWidget *parent) :
     indexLigne=0;
     indexLigneEcriture=0;
     /////
-    listeStyle[0]=3;
 
     // Background du Panel
     QPalette Pal(palette());
@@ -26,8 +25,8 @@ Panel_Texte::Panel_Texte(QWidget *parent) :
     // Liste de styles
     baliseStyle.push_back("color:#A1B5F6;font-size:large;word-spacing:20'>"); // style par défaut
     baliseStyle.push_back("color:red;font-size:large;word-spacing:50'>"); // style pour curseur musique
-    baliseStyle.push_back("color:#A1B5F6;font-size:large;word-spacing:20;text-decoration:underline;'>"); // style pour curseur saisie
-    baliseStyle.push_back("color:#red;font-size:large;word-spacing:50;text-decoration:underline;'>"); // styles cumulés
+    baliseStyle.push_back("color:blue;font-size:large;word-spacing:20;text-decoration:underline;'>"); // style pour curseur saisie
+    baliseStyle.push_back("color:green;font-size:large;word-spacing:50;text-decoration:underline;'>"); // styles cumulés
 
     //
     QFont police = zone_paroles->font();
@@ -57,8 +56,8 @@ void Panel_Texte::charger_texte(){
     zone_paroles->clear();
     curseur->init();
 
-    for(int i=0;i<listeLigne.size();i++){
-        curseur->insertHtml("<p style='color:#A1B5F6;font-size:large;word-spacing:20'>" + listeLigne[i] + "<br>");
+    for(int i=0;i<listeEdit.size();i++){
+        curseur->insertHtml("<p style='color:#A1B5F6;font-size:large;word-spacing:20'>" + listeEdit[i] + "<br>");
     }
 
 
@@ -72,9 +71,9 @@ void Panel_Texte::re_ecrire(){
     curseur->init();
     cout << "re_ecrire middle" << endl;
 
-    for(int i(0);i<listeLigne.size();i++)
+    for(int i(0);i<listeEdit.size();i++)
     {
-        texte=listeLigne[i];
+        texte=listeEdit[i];
         style_numero=listeStyle[i];
         style=baliseStyle[style_numero];
         curseur->insertHtml("<p style='" + style + texte + "<br>");
@@ -102,6 +101,8 @@ void Panel_Texte::chargerListeLignes(QList<QString>_listeLigne){
             listeEdit[i] = listeEdit[i] + mot+ " ";
         }
     }
+
+    listeStyle[0]=2;
 
     for(int i=0 ; i<listeLigne.size() ; i++){
         cout<<listeLigne[i].toStdString()<<endl;
